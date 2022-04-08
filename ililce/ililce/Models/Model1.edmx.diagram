@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b244548f7d494979b89bc0e873f57a4a" Name="Diagram1">
+        <EntityTypeShape EntityType="DenemeModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DenemeModel.İl" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="DenemeModel.ilce" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="DenemeModel.FK_ilce_İl" />
+        <EntityTypeShape EntityType="DenemeModel.tbldeneme" Width="1.5" PointX="3.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

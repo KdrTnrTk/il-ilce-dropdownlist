@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DenemeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="İl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ad" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ilce">
+    <Key>
+      <PropertyRef Name="ilceid" />
+    </Key>
+    <Property Name="ilceid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ilcead" Type="nvarchar(max)" />
+    <Property Name="ilid" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tbldeneme">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="İl" Type="varchar" MaxLength="50" />
+    <Property Name="İlce" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_ilce_İl">
+    <End Role="İl" Type="Self.İl" Multiplicity="0..1" />
+    <End Role="ilce" Type="Self.ilce" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="İl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ilce">
+        <PropertyRef Name="ilid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DenemeModelStoreContainer">
+    <EntitySet Name="İl" EntityType="Self.İl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ilce" EntityType="Self.ilce" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbldeneme" EntityType="Self.tbldeneme" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ilce_İl" Association="Self.FK_ilce_İl">
+      <End Role="İl" EntitySet="İl" />
+      <End Role="ilce" EntitySet="ilce" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

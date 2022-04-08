@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DenemeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="İl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ilce">
+          <Key>
+            <PropertyRef Name="ilceid" />
+          </Key>
+          <Property Name="ilceid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ilcead" Type="nvarchar(max)" />
+          <Property Name="ilid" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbldeneme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="İl" Type="varchar" MaxLength="50" />
+          <Property Name="İlce" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_ilce_İl">
+          <End Role="İl" Type="Self.İl" Multiplicity="0..1" />
+          <End Role="ilce" Type="Self.ilce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="İl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ilce">
+              <PropertyRef Name="ilid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DenemeModelStoreContainer">
+          <EntitySet Name="İl" EntityType="Self.İl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ilce" EntityType="Self.ilce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldeneme" EntityType="Self.tbldeneme" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ilce_İl" Association="Self.FK_ilce_İl">
+            <End Role="İl" EntitySet="İl" />
+            <End Role="ilce" EntitySet="ilce" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DenemeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityContainer Name="DenemeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="İl" EntityType="DenemeModel.İl" />
+          <EntitySet Name="ilce" EntityType="DenemeModel.ilce" />
+          <AssociationSet Name="FK_ilce_İl" Association="DenemeModel.FK_ilce_İl">
+            <End Role="İl" EntitySet="İl" />
+            <End Role="ilce" EntitySet="ilce" />
+          </AssociationSet>
+          <EntitySet Name="tbldeneme" EntityType="DenemeModel.tbldeneme" />
+        </EntityContainer>
+        <EntityType Name="İl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ilce" Relationship="DenemeModel.FK_ilce_İl" FromRole="İl" ToRole="ilce" />
+        </EntityType>
+        <EntityType Name="ilce">
+          <Key>
+            <PropertyRef Name="ilceid" />
+          </Key>
+          <Property Name="ilceid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ilcead" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ilid" Type="Int32" />
+          <NavigationProperty Name="İl" Relationship="DenemeModel.FK_ilce_İl" FromRole="ilce" ToRole="İl" />
+        </EntityType>
+        <Association Name="FK_ilce_İl">
+          <End Type="DenemeModel.İl" Role="İl" Multiplicity="0..1" />
+          <End Type="DenemeModel.ilce" Role="ilce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="İl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ilce">
+              <PropertyRef Name="ilid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbldeneme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="İl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="İlce" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DenemeModelStoreContainer" CdmEntityContainer="DenemeEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DenemeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="İl">
+            <EntityTypeMapping TypeName="DenemeModel.İl">
+              <MappingFragment StoreEntitySet="İl">
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ilce">
+            <EntityTypeMapping TypeName="DenemeModel.ilce">
+              <MappingFragment StoreEntitySet="ilce">
+                <ScalarProperty Name="ilid" ColumnName="ilid" />
+                <ScalarProperty Name="ilcead" ColumnName="ilcead" />
+                <ScalarProperty Name="ilceid" ColumnName="ilceid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldeneme">
+            <EntityTypeMapping TypeName="DenemeModel.tbldeneme">
+              <MappingFragment StoreEntitySet="tbldeneme">
+                <ScalarProperty Name="İlce" ColumnName="İlce" />
+                <ScalarProperty Name="İl" ColumnName="İl" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

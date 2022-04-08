@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DenemeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityContainer Name="DenemeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="İl" EntityType="DenemeModel.İl" />
+    <EntitySet Name="ilce" EntityType="DenemeModel.ilce" />
+    <AssociationSet Name="FK_ilce_İl" Association="DenemeModel.FK_ilce_İl">
+      <End Role="İl" EntitySet="İl" />
+      <End Role="ilce" EntitySet="ilce" />
+    </AssociationSet>
+    <EntitySet Name="tbldeneme" EntityType="DenemeModel.tbldeneme" />
+  </EntityContainer>
+  <EntityType Name="İl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ilce" Relationship="DenemeModel.FK_ilce_İl" FromRole="İl" ToRole="ilce" />
+  </EntityType>
+  <EntityType Name="ilce">
+    <Key>
+      <PropertyRef Name="ilceid" />
+    </Key>
+    <Property Name="ilceid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ilcead" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ilid" Type="Int32" />
+    <NavigationProperty Name="İl" Relationship="DenemeModel.FK_ilce_İl" FromRole="ilce" ToRole="İl" />
+  </EntityType>
+  <Association Name="FK_ilce_İl">
+    <End Type="DenemeModel.İl" Role="İl" Multiplicity="0..1" />
+    <End Type="DenemeModel.ilce" Role="ilce" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="İl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ilce">
+        <PropertyRef Name="ilid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbldeneme">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="İl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="İlce" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

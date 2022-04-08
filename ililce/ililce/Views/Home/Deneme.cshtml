@@ -1,0 +1,43 @@
+﻿@model ililce.Models.Class1
+
+@{
+    Layout = null;
+}
+
+
+    <title>Deneme</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#DrpSehir').change(function () {
+                var id = $('#DrpSehir').val();
+                $.ajax({
+                    url: '/Home/ilcegetir',
+                    data: { p: id },
+                    type: "POST",
+                    dataType: "Json",
+                    success: function (data) {
+                        console.log(data);
+                        $('#Drpilce').empty();
+                        for (var i = 0; i < data.length; i++) {
+                            $('#Drpilce').append("<option value='" + data[i].Value + "'>" + data[i].Text + "</Option>");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <div style="margin-left:50px;">
+        @Html.Label("İller")
+        @Html.DropDownList("DrpSehir", Model.Sehirler, "--Şehir Seçin--", new
+   { @class = "form-control" })
+        <br />
+        <br />
+        @Html.Label("İlçeler")
+        @Html.DropDownList("Drpilce", Model.İlceler, "--ilçe Seçin--", new
+   { @class = "form-control" })
+    </div>
+
